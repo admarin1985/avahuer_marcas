@@ -116,49 +116,13 @@ class UserController extends Controller
         $form = $this->createDeleteForm($user);
         $form->handleRequest($request);
 
-        if ($form->isSubmitted() && $form->isValid()) {
-            $trans = $this->get('translator');
-            try {
-                $em = $this->getDoctrine()->getManager();
-                $em->remove($user);
-                $em->flush();
-
-                $message = $trans->trans('deleted.success');
-
-                if ($request->isXmlHttpRequest()) {
-                    return new JsonResponse(array(
-                        'message' => $message,
-                        'type' => 'success',
-                        'time' => 4000,
-                        'layout' => 'topRight',
-                    ), 202);
-                } else {
-                    $this->get('session')->getFlashBag()->add('success', $message);
-                }
-            } catch (\Exception $e) {
-                $message = $trans->trans('delete.error.%key%', array('key' => $trans->trans('user.label')));
-                $this->get('logger')->addCritical(sprintf($message . ' ' . $trans->trans('actions.details') . ': %s', $e->getMessage()));
-
-                if ($request->isXmlHttpRequest()) {
-                    return new JsonResponse(array(
-                        'message' => $message,
-                        'type' => 'danger',
-                        'time' => 4000,
-                        'layout' => 'topRight',
-                    ), 500);
-                } else {
-                    $this->get('session')->getFlashBag()->add('danger', $message);
-                }
-            }
+        if ($form->isValid()) {
+            $em = $this->getDoctrine()->getManager();
+            $em->remove($user);
+            $em->flush();
         }
 
-        return $this->render('default/modal_template_delete.html.twig', array(
-            'delete_form' => $form->createView(),
-            'entity' => $this->get('translator')->trans('user.label'),
-            'value' => $user->getUsername(),
-            'index_route' => 'user_index',
-            'route_parameter' => null,
-        ));
+        return $this->redirect($this->generateUrl('user_index'));
     }
 
     /**
@@ -173,6 +137,12 @@ class UserController extends Controller
         return $this->createFormBuilder()
             ->setAction($this->generateUrl('user_delete', array('id' => $user->getId())))
             ->setMethod('DELETE')
+            ->add('submit', 'Symfony\Component\Form\Extension\Core\Type\SubmitType', array(
+                'label' => 'Eliminar',
+                'attr'   => array(
+                    'class' => 'btn btn-danger btn-sm'
+                )))
             ->getForm();
     }
+
 }

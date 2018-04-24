@@ -50,6 +50,11 @@ class Estructura
      */
     private $marca;
 
+    /**
+     * @ORM\OneToMany(targetEntity="AppBundle\Entity\Marcas", mappedBy="estructura", cascade={"persist","remove"})
+     */
+    private $marcas;
+
 
 
     /**
@@ -156,5 +161,46 @@ class Estructura
     public function getId()
     {
         return $this->id;
+    }
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->marcas = new \Doctrine\Common\Collections\ArrayCollection();
+    }
+
+    /**
+     * Add marca
+     *
+     * @param \AppBundle\Entity\Marcas $marca
+     *
+     * @return Estructura
+     */
+    public function addMarca(\AppBundle\Entity\Marcas $marca)
+    {
+        $this->marcas[] = $marca;
+
+        return $this;
+    }
+
+    /**
+     * Remove marca
+     *
+     * @param \AppBundle\Entity\Marcas $marca
+     */
+    public function removeMarca(\AppBundle\Entity\Marcas $marca)
+    {
+        $this->marcas->removeElement($marca);
+    }
+
+    /**
+     * Get marcas
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getMarcas()
+    {
+        return $this->marcas;
     }
 }

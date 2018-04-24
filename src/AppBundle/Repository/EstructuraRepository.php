@@ -24,6 +24,13 @@ class EstructuraRepository extends \Doctrine\ORM\EntityRepository
         $qb = $this->createQueryBuilder('e');
         $query = $qb->where($qb->expr()->eq(true,true));
 
+//        if ($fecha !== null && $fecha !== '') {
+//            $query->innerJoin('e.marcas', 'marca')
+//                ->where($qb->expr()->andX(
+//                    $qb->expr()->eq('marca.fechaHora',':fecha')
+//                ))
+//                ->setParameter('fecha', $fecha);
+//        }
         if ($contrato !== null && $contrato !== '') {
             $query->andWhere($qb->expr()->like('e.contrato',':contrato'))
                 ->setParameter('contrato', '%' . $contrato . '%');
@@ -36,10 +43,6 @@ class EstructuraRepository extends \Doctrine\ORM\EntityRepository
             $query->andWhere($query->expr()->like('e.marca', ':marca'))
                 ->setParameter('marca', '%' . $marca . '%');
         }
-//        if ($fecha !== null && $fecha !== '') {
-//            $query->andWhere($query->expr()->eq('p.fecha', ':fecha'))
-//                ->setParameter('grupo', $fecha);
-//        }
 
         $query->orderBy('e.id', 'ASC');
 

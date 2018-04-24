@@ -22,12 +22,12 @@
                                     <label for="appbundle_busqueda_marca">Marca</label>
                                     {{ form_widget(form.marca, {'attr': {'class': 'form-control'}}) }}
                                 </div>
-                                <div class="col-md-3">
+                                {#<div class="col-md-3">
                                     <div class="form-group" id="div_fechaInicio">
                                         <label for="appbundle_busqueda_fecha">Fecha</label>
                                         {{ form_widget(form.fecha, {'attr': {'class': 'form-control datepicker'}}) }}
                                     </div>
-                                </div>
+                                </div>#}
                                 {{ form_widget(form._token) }}
 
                                 <div id="button_actions" class="col-md-12">
@@ -103,6 +103,4 @@
             $('form#appbundle_busqueda').submit();
         });
     </script>
-
-
 {% endblock %}

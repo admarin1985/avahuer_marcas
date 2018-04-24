@@ -36,9 +36,10 @@ class Marcas
     private $fechaHora;
 
     /**
-     * @var Producto
+     * @var Estructura
      *
-     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Estructura", inversedBy="entradas")
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Estructura", inversedBy="marcas")
+     * @ORM\JoinColumn(name="marca", referencedColumnName="id")
      */
     private $estructura;
 
@@ -99,5 +100,29 @@ class Marcas
     public function getId()
     {
         return $this->id;
+    }
+
+    /**
+     * Set estructura
+     *
+     * @param \AppBundle\Entity\Estructura $estructura
+     *
+     * @return Marcas
+     */
+    public function setEstructura(\AppBundle\Entity\Estructura $estructura = null)
+    {
+        $this->estructura = $estructura;
+
+        return $this;
+    }
+
+    /**
+     * Get estructura
+     *
+     * @return \AppBundle\Entity\Estructura
+     */
+    public function getEstructura()
+    {
+        return $this->estructura;
     }
 }
