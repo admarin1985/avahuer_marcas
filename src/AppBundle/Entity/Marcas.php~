@@ -1,0 +1,40 @@
+<?php
+
+namespace AppBundle\Entity;
+
+use Doctrine\ORM\Mapping as ORM;
+
+/**
+ * Marcas
+ *
+ * @ORM\Table(name="marcas", uniqueConstraints={@ORM\UniqueConstraint(name="id", columns={"id"}), @ORM\UniqueConstraint(name="idmarcas", columns={"id"})})
+ * @ORM\Entity
+ */
+class Marcas
+{
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="marca", type="integer", nullable=false)
+     */
+    private $marca;
+
+    /**
+     * @var \DateTime
+     *
+     * @ORM\Column(name="fecha_hora", type="datetime", nullable=false)
+     */
+    private $fechaHora;
+
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="id", type="integer")
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="IDENTITY")
+     */
+    private $id;
+
+
+}
+

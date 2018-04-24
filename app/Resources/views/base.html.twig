@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <!-- Tell the browser to be responsive to screen width -->
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <!-- Favicon icon -->
+    <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
+    <title>{% block title %}Avahuer Marcas!{% endblock %}</title>
+    <!-- Bootstrap Core CSS -->
+    <link href="{{ asset('bootstrap/dist/css/bootstrap.min.css') }}" rel="stylesheet">
+    <link href="{{ asset('plugins/bootstrap-extension/css/bootstrap-extension.css') }}" rel="stylesheet">
+    <!-- This is Sidebar menu CSS -->
+    <link href="{{ asset('plugins/sidebar-nav/dist/sidebar-nav.min.css') }}" rel="stylesheet">
+    <!-- This is a Animation CSS -->
+    <link href="{{ asset('css/animate.css') }}" rel="stylesheet">
+    <!-- This is a Custom CSS -->
+    <link href="{{ asset('css/components-md.min.css') }}" rel="stylesheet">
+    <link href="{{ asset('css/style.css') }}" rel="stylesheet">
+    <!-- Plugins -->
+    <link href="{{ asset('plugins/bootstrap-datepicker/css/bootstrap-datetimepicker.min.css') }}" rel="stylesheet" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="{{ asset('plugins/DataTables/media/css/dataTables.bootstrap.min.css') }}" />
+
+    {% block stylesheets %}{% endblock %}
+
+    <!-- color CSS you can use different color css from css/colors folder -->
+    <!-- We have chosen the skin-gray-dark (gray-dark.css) for this starter
+         page. However, you can choose any other skin from folder css / colors .
+         -->
+    <link href="{{ asset('css/colors/blue.css') }}" id="theme" rel="stylesheet">
+
+</head>
+
+<body class="fix-sidebar">
+<!-- Preloader -->
+<div class="preloader">
+    <div class="cssload-speeding-wheel"></div>
+</div>
+<div id="wrapper">
+    <!-- Top Navigation -->
+    <nav class="navbar navbar-default navbar-static-top m-b-0">
+        <div class="navbar-header">
+            <!-- Toggle icon for mobile view --><a class="navbar-toggle hidden-sm hidden-md hidden-lg " href="javascript:void(0)" data-toggle="collapse" data-target=".navbar-collapse"><i class="ti-menu"></i></a>
+            <div class="top-left-part"><a class="logo" href="{{ path('estructura_index') }}"><b><img src="{{ asset('images/logo.png') }}" alt="home" /></b><span class="hidden-xs"><strong>Avahuer Marcas</strong></span></a></div>
+            <!-- /Logo -->
+            <!-- This is the message dropdown -->
+            <ul class="nav navbar-top-links navbar-right pull-right">
+                <li class="dropdown">
+                    <a class="dropdown-toggle waves-effect waves-light" data-toggle="dropdown" href="#">
+                        <i class="icon-user" style="font-size: 1.5em"></i> {% if app.user %} {{ app.user.username }}{% endif %}
+                    </a>
+                    <ul class="dropdown-menu animated bounceInDown">
+                        {% if app.user %}
+                            <li><a href="{{ path('fos_user_security_logout') }}"><i class="fa fa-power-off"></i> Cerrar sesión</a></li>
+                            <li><a href="{{ path('user_index') }}"><i class="fa fa-users"></i> Administrar usuarios</a></li>
+                        {% else %}
+                            <li><a href="{{ path('fos_user_security_login') }}"><i class="fa fa-sign-in"></i> Iniciar sesión</a></li>
+
+                        {% endif %}
+                    </ul>
+                    <!-- /.dropdown-messages -->
+                </li>
+            </ul>
+        </div>
+        <!-- /.navbar-header -->
+        <!-- /.navbar-top-links -->
+        <!-- /.navbar-static-side -->
+    </nav>
+    <!-- End Top Navigation -->
+    <!-- Left navbar-header -->
+    {#{% include '_sidebarmenu.html.twig' %}#}
+    <!-- Left navbar-header end -->
+    <!-- Page Content -->
+    <div id="page-wrapper">
+        <div class="container-fluid">
+            <div class="row bg-title">
+                <!-- .page title -->
+                <div class="col-lg-4 col-md-5 col-sm-5 col-xs-12">
+                    <h4 class="page-title">{% block page_title %} {% endblock %}</h4> </div>
+                <!-- /.page title -->
+                <!-- .breadcrumb -->
+                <div class="col-lg-8 col-sm-7 col-md-7 col-xs-12">
+                    <ol class="breadcrumb">
+                        {% block breadcrumbs %}
+                        {% endblock %}
+                    </ol>
+                </div>
+                <!-- /.breadcrumb -->
+            </div>
+
+            <div class="row">
+                <div id="global-messages" class="col-sm-12">
+
+                </div>
+            </div>
+            <!-- .row -->
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="white-box">
+                        {% block body %}{% endblock %}
+                    </div>
+                </div>
+            </div>
+            <!-- .row -->
+        </div>
+        <!-- /.container-fluid -->
+        <footer class="footer text-center"> 2017 &copy; Elite Admin brought to you by themedesigner.in </footer>
+    </div>
+    <!-- /#page-wrapper -->
+</div>
+<!-- /#wrapper -->
+<!-- jQuery -->
+<script src="{{ asset('plugins/jquery/dist/jquery.min.js') }}"></script>
+<!-- Bootstrap Core JavaScript -->
+<script src="{{ asset('bootstrap/dist/js/tether.min.js') }}"></script>
+<script src="{{ asset('bootstrap/dist/js/bootstrap.min.js') }}"></script>
+<script src="{{ asset('plugins/bootstrap-extension/js/bootstrap-extension.min.js') }}"></script>
+<!-- Sidebar menu plugin JavaScript -->
+<script src="{{ asset('plugins/sidebar-nav/dist/sidebar-nav.min.js') }}"></script>
+<!--Slimscroll JavaScript For custom scroll-->
+<script src="{{ asset('js/jquery.slimscroll.js') }}"></script>
+<!--Wave Effects -->
+<script src="{{ asset('js/waves.js') }}"></script>
+<!-- Custom Theme JavaScript -->
+<script src="{{ asset('js/custom.min.js') }}"></script>
+<script src="{{ asset('plugins/jquery-form/jquery.form.min.js') }}"></script>
+<script src="{{ asset('plugins/moment/min/moment.min.js') }}"></script>
+<script src="{{ asset('plugins/moment/locale/es.js') }}"></script>
+<script src="{{ asset('plugins/bootstrap-datepicker/js/bootstrap-datetimepicker.min.js') }}"></script>
+<script src="{{ asset('plugins/DataTables/media/js/jquery.dataTables.min.js') }}" type="text/javascript"></script>
+<script src="{{ asset('plugins/DataTables/media/js/dataTables.bootstrap.min.js') }}" type="text/javascript"></script>
+<script src="{{ asset('plugins/DataTables/media/js/i18n/es.js') }}" type="text/javascript"></script>
+
+{% block javascripts %}{% endblock %}
+</body>
+
+</html>

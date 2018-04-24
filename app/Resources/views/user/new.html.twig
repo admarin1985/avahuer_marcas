@@ -1,0 +1,35 @@
+{% extends 'base.html.twig' %}
+
+{% block page_title %}Adicionar usuario{% endblock %}
+
+{% block title %}Adicionar usuario{% endblock %}
+
+{% block body %}
+    <div class="row">
+        <div class="col-md-12">
+            <div class="portlet light portlet-fit bordered">
+                <div class="portlet-body">
+                    <button class="btn btn-default pull-right btn-sm"
+                            onClick="location.href = '{{ path('user_index') }}'">
+                        <i class="fa fa-reply"></i> Listado de usuarios
+                    </button>
+                    <div class="tabbable">
+                        <ul class="nav nav-tabs">
+                            <li class="active">
+                                <a href="#tab_general" data-toggle="tab">
+                                    Inserte los datos </a>
+                            </li>
+                        </ul>
+                        <div class="tab-content no-space">
+                            <div class="tab-pane active" id="tab_general">
+                                <div class="form-body">
+                                    {% include 'user/_form.html.twig' %}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

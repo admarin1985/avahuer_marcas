@@ -1,0 +1,1 @@
+fos.Router.setData({"base_url":"","routes":{"producto_delete":{"tokens":[["variable","\/","[^\/]++","id"],["text","\/producto"]],"defaults":[],"requirements":[],"hosttokens":[],"methods":["DELETE"],"schemes":[]}},"prefix":"","host":"localhost","scheme":"http"});

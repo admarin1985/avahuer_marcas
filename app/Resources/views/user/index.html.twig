@@ -1,0 +1,83 @@
+{% extends 'base.html.twig' %}
+
+{% block page_title %}Usuarios{% endblock %}
+
+{% block title %}Usuarios{% endblock %}
+
+{% block body %}
+    <div class="row">
+        <div class="col-md-12">
+            <div class="portlet light portlet-fit bordered">
+                <div class="portlet-body">
+                    <div class="table-toolbar">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="btn-group">
+                                    <button class="btn btn-primary btn-sm"
+                                            onclick="location.href = '{{ path('user_new') }}'">
+                                        <i class="fa fa-plus"></i> Adicionar
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <table class="table table-striped table-bordered table-hover" id="table-datatable">
+                        <thead>
+                        <tr>
+                            <th>Usuario</th>
+                            <th>Contraseña</th>
+                            <th>Habilitado</th>
+                            <th class="col-md-3"></th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {% for user in users %}
+                            <tr>
+                                <td><a href="{{ path('user_show', { 'id': user.id }) }}">{{ user.username }}</a></td>
+                                <td>{{ user.email }}</td>
+                                {% if user.enabled %}
+                                    {% set badge = 'primary' %}
+                                    {% set text_color = 'primary' %}
+                                    {% set status_type = 'Si' %}
+                                {% else %}
+                                    {% set badge = 'danger' %}
+                                    {% set text_color = 'danger' %}
+                                    {% set status_type = 'No' %}
+                                {% endif %}
+                                <td align="center" class="text-{{ text_color }}"><span
+                                            class="label label-{{ badge }}">{{ status_type | upper }}</span>
+                                </td>
+                                <td align="center">
+                                    <div>
+                                        <a href="{{ path('user_show', { 'id': user.id }) }}"
+                                           class="btn btn-default btn-sm tooltips" data-container="body"
+                                           data-original-title="{{ 'actions.show'|trans }}" style="margin-right: auto">
+                                            <i class="fa fa-eye"></i></a>
+                                        <a href="{{ path('user_edit', { 'id': user.id }) }}"
+                                           class="btn btn-primary btn-sm tooltips" data-container="body"
+                                           data-original-title="{{ 'actions.edit'|trans }}" style="margin-right: auto">
+                                            <i class="fa fa-edit"></i></a>
+                                        <a {% if app.user and app.user.username  == user.username %}disabled{% endif %}
+                                           href="javascript:;" {% if app.user and app.user.username != user.username %}data-action="user_delete" data-id="{{ user.id }}"{% endif %}
+                                           class="btn btn-danger btn-sm tooltips {% if app.user and  app.user.username != user.username %}delete-selection{% endif %}"
+                                           data-container="body" data-original-title="{{ 'actions.delete'|trans }}">
+                                            <i class="fa fa-trash-o"></i></a>
+                                    </div>
+                                </td>
+                            </tr>
+                        {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block javascripts %}
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $('#table-datatable').DataTable();
+        });
+    </script>
+{% endblock %}

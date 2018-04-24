@@ -1,0 +1,74 @@
+<!doctype html>
+<!--[if lte IE 9]> <html class="lte-ie9" lang="es"> <![endif]-->
+<!--[if gt IE 9]><!--> <html lang="en"> <!--<![endif]-->
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="initial-scale=1.0,maximum-scale=1.0,user-scalable=no">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <!-- Remove Tap Highlight on Windows Phone IE -->
+    <meta name="msapplication-tap-highlight" content="no"/>
+
+    <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
+
+    <title>{% if app.request.pathInfo  == '/login'%}
+                {{ 'user.login' | trans }}
+           {% else %}
+               {{ 'user.register' | trans }}
+           {% endif %} | {{ 'system.title' | trans }}</title>
+
+    <!-- uikit -->
+    <link rel="stylesheet" href="{{ asset('assets/vendor/uikit/css/uikit.almost-flat.min.css') }}"/>
+
+    <!-- altair admin login page -->
+    <link rel="stylesheet" href="{{ asset('css/login/login_page.min.css') }}" />
+
+</head>
+<body class="login_page">
+    {% set i = 0 %}
+    {% if app.request.hasPreviousSession %}
+        {% for type, messages in app.session.flashbag.all() %}
+            {% for message in messages %}
+                {% set id = "flash_messages_" ~  i %}
+                <a id="{{ id }}" class="hidden-md" hidden="hidden" data-message="{{ message }}" data-status="{{ type }}" data-pos="top-center">#</a>
+                {% set i = i + 1 %}
+            {% endfor %}
+        {% endfor %}
+    {% endif %}
+
+    {% block fos_user_content %}
+    {% endblock fos_user_content %}
+
+
+    <!-- common functions -->
+    <script src="{{ asset('js/login/common.min.js') }}"></script>
+
+    <!-- altair core functions -->
+    <script src="{{ asset('js/login/altair_admin_common.min.js') }}"></script>
+
+    <!-- uikit functions -->
+    <script src="{{ asset('js/login/uikit_custom.min.js') }}"></script>
+
+    <!--  notifications functions -->
+    <script src="{{ asset('js/login/components_notifications.min.js') }}"></script>
+
+    <script type="text/javascript">
+        $(document).ready(function (){
+            {% if app.request.pathInfo  == '/login' and error %}
+                $('#login_error').click();
+            {% endif %}
+            {% if app.request.pathInfo  == '/register/' and form.vars.errors.form.getErrors(true).count > 0 %}
+                $('#register_error').click();
+            {% endif %}
+            $('a[href="#signin"]').on('click', function (e) {
+                e.preventDefault();
+
+                $('#login-form').submit();
+            });
+            for(j = 0; j < {{ i }}; j++){
+                id = "flash_messages_"+ j;
+                $('#'+id).click();
+            }
+        });
+    </script>
+</body>
+</html>

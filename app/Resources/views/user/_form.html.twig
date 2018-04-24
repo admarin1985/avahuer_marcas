@@ -1,0 +1,64 @@
+{{ form_errors(form) }}
+<form id="{{ form.vars.id }}" name="{{ form.vars.full_name }}" action="{{ form.vars.action }}"
+      method="post" enctype="multipart/form-data" class="form-material form-horizontal">
+    {% if form.vars.method == 'PUT' %}
+        <input type="hidden" name="_method" value="PUT">
+        {% set editing = true %}
+    {% endif %}
+
+    <div>
+
+        <div class="form-group">
+            <label for="app_user_username" class="col-md-12">Usuario</label>
+            <div class="col-md-12">
+                {{ form_widget(form.username, {'attr': {'class': 'form-control'}}) }}
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label for="app_user_email" class="col-md-12">Email</label>
+            <div class="col-md-12">
+                {{ form_widget(form.email, {'attr': {'class': 'form-control'}}) }}
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label for="app_user_roles" class="col-md-12">Roles</label>
+            <div class="col-md-12">
+                {{ form_widget(form.roles, {'attr': {'class': 'form-control'}}) }}
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label for="app_user_plainPassword_first" class="col-md-12">Contraseña</label>
+            <div class="col-md-12">
+                {{ form_widget(form.plainPassword.first, {'attr': {'class': 'form-control'}}) }}
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label for="app_user_plainPassword_second" class="col-md-12">Repetir contraseña</label>
+            <div class="col-md-12">
+                {{ form_widget(form.plainPassword.second, {'attr': {'class': 'form-control'}}) }}
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label for="app_user_enabled" class="col-md-12">Habilitado</label>
+            <div class="col-md-12">
+                {{ form_widget(form.enabled) }}
+            </div>
+        </div>
+
+        {{ form_widget(form._token) }}
+
+        <div id="button_actions" class="col-md-12">
+            <button type="submit" class="btn btn-primary btn-sm">
+                <i class="fa {{ editing is not defined ? "fa-save" : "fa-edit" }}"></i> {{ (editing is not defined ? "Adicionar" : "Editar") }}
+            </button>
+            <a class="btn btn-default btn-sm" href="{{ path("user_index") }}">
+                <i class="fa {{ editing is not defined ? " fa-remove" : " fa-chevron-left" }}"></i> {{ (editing is not defined ? "Cancelar" : "Volver")|trans }}
+            </a>
+        </div>
+    </div>
+</form>

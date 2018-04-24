@@ -1,0 +1,108 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <div class="row">
+        <div class="col-md-12">
+            <div class="portlet light portlet-fit bordered">
+                <div class="portlet-body">
+                    <div class="form-body">
+                        {{ form_errors(form) }}
+                        <form id="{{ form.vars.id }}" name="{{ form.vars.full_name }}" action="{{ form.vars.action }}"
+                              method="post" enctype="multipart/form-data">
+                            <div class="row">
+                                <div class="col-md-3">
+                                    <label for="appbundle_busqueda_contrato">Contrato</label>
+                                    {{ form_widget(form.contrato, {'attr': {'class': 'form-control'}}) }}
+                                </div>
+                                <div class="col-md-3">
+                                    <label for="appbundle_busqueda_puesto">Puesto</label>
+                                    {{ form_widget(form.puesto, {'attr': {'class': 'form-control'}}) }}
+                                </div>
+                                <div class="col-md-3">
+                                    <label for="appbundle_busqueda_marca">Marca</label>
+                                    {{ form_widget(form.marca, {'attr': {'class': 'form-control'}}) }}
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="form-group" id="div_fechaInicio">
+                                        <label for="appbundle_busqueda_fecha">Fecha</label>
+                                        {{ form_widget(form.fecha, {'attr': {'class': 'form-control datepicker'}}) }}
+                                    </div>
+                                </div>
+                                {{ form_widget(form._token) }}
+
+                                <div id="button_actions" class="col-md-12">
+                                    <button type="submit" class="btn btn-primary btn-sm" id="appbundle_busqueda_enviar">
+                                        <i class="fa fa-search"></i>Buscar
+                                    </button>
+                                    <button class="btn btn-primary btn-sm" id="appbundle_busqueda_clear">
+                                        <i class="fa fa-eraser"></i>Limpiar campos
+                                    </button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <h1>Listado de estructuras</h1>
+
+    <table class="table table-striped table-bordered table-hover" id="table-datatable">
+        <thead>
+            <tr>
+                {#<th>Id</th>#}
+                <th>Codigo</th>
+                <th>Contrato</th>
+                <th>Puesto</th>
+                <th>Marca</th>
+                {#<th>Actions</th>#}
+            </tr>
+        </thead>
+        <tbody>
+        {% for estructura in estructuras %}
+            <tr>
+                {#<td><a href="{{ path('estructura_show', { 'id': estructura.id }) }}">{{ estructura.id }}</a></td>#}
+                <td>{{ estructura.codigo }}</td>
+                <td>{{ estructura.contrato }}</td>
+                <td>{{ estructura.puesto }}</td>
+                <td>{{ estructura.marca }}</td>
+                {#<td>
+                    <ul>
+                        <li>
+                            <a href="{{ path('estructura_show', { 'id': estructura.id }) }}">show</a>
+                        </li>
+                    </ul>
+                </td>#}
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    
+{% endblock %}
+{% block javascripts %}
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $('#table-datatable').DataTable();
+        });
+
+        $('.datepicker').datetimepicker({
+            'format': 'D/M/Y'
+        });
+
+        $('button#appbundle_busqueda_clear').off('click').on('click', function (event) {
+            if (event !== undefined) {
+                event.preventDefault();
+            }
+            $('#appbundle_busqueda_contrato').val('');
+            $('#appbundle_busqueda_puesto').val('');
+            $('#appbundle_busqueda_marca').val('');
+            $('#appbundle_busqueda_fecha').val('');
+
+            $('form#appbundle_busqueda').submit();
+        });
+    </script>
+
+
+{% endblock %}

@@ -1,0 +1,36 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>Estructura</h1>
+
+    <table>
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ estructura.id }}</td>
+            </tr>
+            <tr>
+                <th>Codigo</th>
+                <td>{{ estructura.codigo }}</td>
+            </tr>
+            <tr>
+                <th>Contrato</th>
+                <td>{{ estructura.contrato }}</td>
+            </tr>
+            <tr>
+                <th>Puesto</th>
+                <td>{{ estructura.puesto }}</td>
+            </tr>
+            <tr>
+                <th>Marca</th>
+                <td>{{ estructura.marca }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <ul>
+        <li>
+            <a href="{{ path('estructura_index') }}">Back to the list</a>
+        </li>
+    </ul>
+{% endblock %}

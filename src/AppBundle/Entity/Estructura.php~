@@ -1,0 +1,54 @@
+<?php
+
+namespace AppBundle\Entity;
+
+use Doctrine\ORM\Mapping as ORM;
+
+/**
+ * Estructura
+ *
+ * @ORM\Table(name="estructura", uniqueConstraints={@ORM\UniqueConstraint(name="id", columns={"id"})})
+ * @ORM\Entity
+ */
+class Estructura
+{
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="codigo", type="integer", nullable=false)
+     */
+    private $codigo;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="contrato", type="string", length=100, nullable=false)
+     */
+    private $contrato;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="puesto", type="string", length=100, nullable=false)
+     */
+    private $puesto;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="marca", type="string", length=100, nullable=false)
+     */
+    private $marca;
+
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="id", type="integer")
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="IDENTITY")
+     */
+    private $id;
+
+
+}
+

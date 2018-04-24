@@ -1,0 +1,86 @@
+{{ form_errors(form) }}
+<div class="login_page_wrapper">
+    <div class="md-card" id="login_card" style="opacity: 1; transform: scale(1);">
+        <div class="md-card-content large-padding" id="register_form" style="">
+            <a class="uk-position-top-right uk-icon-close uk-margin-right uk-margin-top back_to_login" href="{{ path('estructura_index') }}"></a>
+            <h2 class="heading_a uk-margin-medium-bottom">Registro de usuario</h2>
+
+            {% set errors = "" %}
+
+            {{ form_start(form, {'method': 'post', 'action': path('fos_user_registration_register')}) }}
+            <div class="uk-form-row">
+                {% if form_errors(form.username) %}
+                    {% set wrapper_class = "md-input-wrapper-danger md-input-filled" %}
+                    {% set errors = errors ~ form_label(form.username) ~ form_errors(form.username) %}
+                {% else %}
+                    {% set wrapper_class = "md-input-wrapper md-input-filled" %}
+                {% endif %}
+                <div class="{{ wrapper_class }}">
+                    <label for="fos_user_registration_form_username">Nombre de usuario</label>
+                    {% if form_errors(form.username) %}
+                        {{ form_widget(form.username, {'attr': {'class': 'md-input md-input-danger', 'style': 'color: red'}}) }}
+                    {% else %}
+                        {{ form_widget(form.username, {'attr': {'class': 'md-input'}}) }}
+                    {% endif %}
+                    <span class="md-input-bar"></span>
+                </div>
+            </div>
+            <div class="uk-form-row">
+                {% if form_errors(form.email) %}
+                    {% set wrapper_class = "md-input-wrapper-danger md-input-filled" %}
+                    {% set errors = errors ~ form_label(form.email) ~ form_errors(form.email) %}
+                {% else %}
+                    {% set wrapper_class = "md-input-wrapper md-input-filled" %}
+                {% endif %}
+                <div class="{{ wrapper_class }}">
+                    <label for="fos_user_registration_form_email">Email</label>
+                    {% if form_errors(form.email) %}
+                        {{ form_widget(form.email, {'attr': {'class': 'md-input md-input-danger', 'style': 'color: red'}}) }}
+                    {% else %}
+                        {{ form_widget(form.email, {'attr': {'class': 'md-input'}}) }}
+                    {% endif %}
+                    <span class="md-input-bar"></span>
+                </div>
+            </div>
+            <div class="uk-form-row">
+                {% if form_errors(form.plainPassword['first']) %}
+                    {% set wrapper_class = "md-input-wrapper-danger md-input-filled" %}
+                    {% set errors = errors ~ form_label(form.plainPassword['first']) ~ form_errors(form.plainPassword['first']) %}
+                {% else %}
+                    {% set wrapper_class = "md-input-wrapper md-input-filled" %}
+                {% endif %}
+                <div class="{{ wrapper_class }}">
+                    <label for="fos_user_registration_form_plainPassword_first">Contraseña</label>
+                    {% if form_errors(form.plainPassword['first']) %}
+                        {{ form_widget(form.plainPassword['first'], {'attr': {'class': 'md-input md-input-danger', 'style': 'color: red'}}) }}
+                    {% else %}
+                    {{ form_widget(form.plainPassword['first'], {'attr': {'class': 'md-input'}}) }}
+                    {% endif %}
+                    <span class="md-input-bar"></span>
+                 </div>
+            </div>
+            <div class="uk-form-row">
+                {% if form_errors(form.plainPassword['second']) %}
+                    {% set wrapper_class = "md-input-wrapper-danger md-input-filled" %}
+                    {% set errors = errors ~ form_label(form.plainPassword['second']) ~ form_errors(form.plainPassword['second']) %}
+                {% else %}
+                    {% set wrapper_class = "md-input-wrapper md-input-filled" %}
+                {% endif %}
+                <div class="{{ wrapper_class }}">
+                    <label for="fos_user_registration_form_plainPassword_second">Repetir contraseña</label>
+                    {% if form_errors(form.plainPassword['second']) %}
+                        {{ form_widget(form.plainPassword['second'], {'attr': {'class': 'md-input md-input-danger', 'style': 'color: red'}}) }}
+                    {% else %}
+                        {{ form_widget(form.plainPassword['second'], {'attr': {'class': 'md-input'}}) }}
+                    {% endif %}
+                    <span class="md-input-bar"></span>
+                </div>
+            </div>
+            <div class="uk-margin-medium-top">
+                <input type="submit" class="md-btn md-btn-primary md-btn-block md-btn-large" value="Crear cuenta" />
+            </div>
+            {{ form_end(form) }}
+        </div>
+    </div>
+    <a id="register_error" class="hidden-md" hidden="hidden" data-message="{{ errors }}" data-status="danger" data-pos="top-center">#</a>
+</div>
